@@ -1,0 +1,99 @@
+.project-detail {
+  padding-top: var(--space-5);
+  padding-bottom: var(--space-6);
+  min-height: 70vh;
+}
+
+.project-detail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  margin-bottom: var(--space-4);
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+.project-detail__back:hover { color: var(--color-accent); transform: translateX(-2px); }
+
+.project-detail__header h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin: 0.3rem 0 var(--space-2);
+}
+
+.project-detail__short {
+  color: var(--color-ink-soft);
+  max-width: 60ch;
+  font-size: 1.05rem;
+  margin-bottom: var(--space-3);
+}
+
+.project-detail__links {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.project-detail__hero-image {
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  margin-bottom: var(--space-5);
+}
+
+.project-detail__grid {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.project-detail__grid h2 {
+  font-size: 1.3rem;
+  margin: var(--space-4) 0 var(--space-2);
+  color: var(--color-accent-2);
+}
+.project-detail__grid h2:first-child { margin-top: 0; }
+
+.project-detail__grid > div > p {
+  color: var(--color-ink-soft);
+  line-height: 1.75;
+  max-width: 68ch;
+}
+
+.project-detail__features {
+  padding-left: 1.2rem;
+  color: var(--color-ink-soft);
+}
+.project-detail__features li { margin-bottom: 0.4rem; }
+.project-detail__features li::marker { color: var(--color-success); }
+
+.project-detail__screens {
+  display: grid;
+  gap: var(--space-2);
+}
+.project-detail__screens img {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+.project-detail__sidebar {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: var(--space-3);
+  position: sticky;
+  top: 90px;
+}
+.project-detail__sidebar h3 {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  margin-bottom: var(--space-2);
+}
+.project-detail__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+@media (max-width: 820px) {
+  .project-detail__grid { grid-template-columns: 1fr; }
+  .project-detail__sidebar { position: static; }
+}

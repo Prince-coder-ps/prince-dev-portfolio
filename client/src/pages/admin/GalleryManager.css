@@ -1,0 +1,18 @@
+.gallery-admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-2);
+}
+
+.gallery-admin-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-surface);
+  transition: transform 0.2s var(--ease), border-color 0.2s ease;
+}
+.gallery-admin-card:hover { transform: translateY(-2px); border-color: var(--color-accent); }
+.gallery-admin-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+.gallery-admin-card > div { padding: var(--space-2); }
+.gallery-admin-card strong { display: block; font-size: 0.9rem; color: var(--color-ink); }
+.gallery-admin-card p { color: var(--color-muted); font-size: 0.8rem; margin: 0.2rem 0 0.5rem; }
