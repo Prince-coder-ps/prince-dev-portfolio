@@ -1,3 +1,4 @@
+import { FiUser } from 'react-icons/fi';
 import './About.css';
 
 const About = ({ profile }) => {
@@ -15,7 +16,7 @@ const About = ({ profile }) => {
         </div>
 
         <div>
-          <span className="section-kicker">About</span>
+          <span className="section-kicker"><FiUser /> About</span>
           <h2 className="section-heading">Computer Science undergraduate & aspiring SDE</h2>
           <div className="about__text">
             {paragraphs.map((para, i) => (

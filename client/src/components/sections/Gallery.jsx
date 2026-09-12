@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FiX } from 'react-icons/fi';
+import { FiX, FiImage } from 'react-icons/fi';
 import useContent from '../../hooks/useContent';
 import { getGallery } from '../../services/content';
 import AsyncState from '../AsyncState';
@@ -13,7 +13,7 @@ const Gallery = () => {
   return (
     <section id="gallery" className="gallery">
       <div className="container">
-        <span className="section-kicker">Gallery</span>
+        <span className="section-kicker"><FiImage /> Gallery</span>
         <h2 className="section-heading">Moments & snapshots</h2>
 
         <AsyncState loading={loading} error={error} isEmpty={!loading && !error && items.length === 0} emptyMessage="Gallery is empty for now.">

@@ -1,3 +1,4 @@
+import { FiBookOpen } from 'react-icons/fi';
 import useContent from '../../hooks/useContent';
 import { getEducation } from '../../services/content';
 import AsyncState from '../AsyncState';
@@ -10,7 +11,7 @@ const Education = () => {
   return (
     <section id="education" className="education">
       <div className="container">
-        <span className="section-kicker">Education</span>
+        <span className="section-kicker"><FiBookOpen /> Education</span>
         <h2 className="section-heading">Academic background</h2>
 
         <AsyncState loading={loading} error={error} isEmpty={!loading && !error && items.length === 0} emptyMessage="Education details coming soon.">

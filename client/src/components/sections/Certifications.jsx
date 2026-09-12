@@ -11,7 +11,7 @@ const Certifications = () => {
   return (
     <section id="certifications" className="certifications">
       <div className="container">
-        <span className="section-kicker">Certifications</span>
+        <span className="section-kicker"><FiAward /> Certifications</span>
         <h2 className="section-heading">Training & certifications</h2>
 
         <AsyncState loading={loading} error={error} isEmpty={!loading && !error && items.length === 0} emptyMessage="Certifications will be listed here soon.">

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { FiMail } from 'react-icons/fi';
 import { submitContact } from '../../services/content';
 import { apiErrorMessage } from '../../services/api';
 import './Contact.css';
@@ -46,7 +47,7 @@ const Contact = () => {
   return (
     <section id="contact" className="contact">
       <div className="container">
-        <span className="section-kicker">Contact</span>
+        <span className="section-kicker"><FiMail /> Contact</span>
         <h2 className="section-heading">Let's work together</h2>
 
         <form className="contact__form" onSubmit={handleSubmit} noValidate>

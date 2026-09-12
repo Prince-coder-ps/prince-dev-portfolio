@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FiGithub, FiExternalLink } from 'react-icons/fi';
+import { FiGithub, FiExternalLink, FiFolder } from 'react-icons/fi';
 import useContent from '../../hooks/useContent';
 import { getProjects } from '../../services/content';
 import AsyncState from '../AsyncState';
@@ -18,7 +18,7 @@ const Projects = () => {
   return (
     <section id="projects" className="projects">
       <div className="container">
-        <span className="section-kicker">Projects</span>
+        <span className="section-kicker"><FiFolder /> Projects</span>
         <h2 className="section-heading">Things I've built</h2>
 
         <AsyncState

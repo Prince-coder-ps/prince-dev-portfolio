@@ -50,7 +50,7 @@ const Skills = () => {
   return (
     <section id="skills" className="skills">
       <div className="container">
-        <span className="section-kicker">Skills</span>
+        <span className="section-kicker"><FiCpu /> Skills</span>
         <h2 className="section-heading">What I work with</h2>
 
         <AsyncState loading={loading} error={error} isEmpty={!loading && !error && grouped.length === 0} emptyMessage="Skills will be listed here soon.">
