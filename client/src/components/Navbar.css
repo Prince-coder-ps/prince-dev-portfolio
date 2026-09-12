@@ -162,23 +162,6 @@
 .navbar__contact-link:hover::after,
 .navbar__contact-link.is-active::after { width: 100%; }
 
-.navbar__resume-link {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: 0.45rem 1rem;
-  font-weight: 500;
-  font-size: 0.9rem;
-  white-space: nowrap;
-  transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.navbar__resume-link:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-  box-shadow: 0 8px 20px -12px rgba(13,148,136,0.4);
-  transform: translateY(-1px);
-}
-
 @media (max-width: 1050px) {
   .navbar__links { gap: var(--space-2); }
 }
@@ -186,7 +169,7 @@
 @media (max-width: 900px) {
   .navbar__menu-btn { display: block; }
 
-  .navbar__inner { grid-template-columns: 1fr auto; }
+  .navbar__inner { grid-template-columns: 1fr auto auto; }
 
   .navbar__links {
     position: fixed;
@@ -202,7 +185,6 @@
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.32s var(--ease);
-    justify-self: stretch;
   }
 
   .navbar__links--open {
@@ -220,17 +202,9 @@
 
   .navbar__mobile-only { display: block; }
 
-  .navbar__links .navbar__resume-link {
-    margin-top: var(--space-2);
-    text-align: center;
-    border-bottom: 1px solid var(--color-border) !important;
-  }
-
   /* On mobile, the right-side group collapses to just the theme toggle
-     (Contact + Resume move into the dropdown menu instead). */
-  .navbar__right { gap: var(--space-2); }
-  .navbar__right .navbar__contact-link,
-  .navbar__right .navbar__resume-link {
+     (Contact moves into the dropdown menu instead). */
+  .navbar__right .navbar__contact-link {
     display: none;
   }
 }

@@ -95,20 +95,13 @@ const Navbar = ({ profile }) => {
             </a>
           ))}
 
-          {/* Contact + Resume also live inside the mobile dropdown */}
+          {/* Contact also lives inside the mobile dropdown */}
           <a
             href="#contact"
             className="navbar__mobile-only"
             onClick={handleNavClick('#contact')}
           >
             Contact
-          </a>
-          <a
-            href="#home"
-            className="navbar__resume-link navbar__mobile-only"
-            onClick={handleNavClick('#home')}
-          >
-            Resume
           </a>
         </nav>
 
@@ -121,13 +114,6 @@ const Navbar = ({ profile }) => {
             Contact
           </a>
           <ThemeToggle />
-          <a
-            href="#home"
-            className="navbar__resume-link"
-            onClick={handleNavClick('#home')}
-          >
-            Resume
-          </a>
         </div>
       </div>
     </header>
