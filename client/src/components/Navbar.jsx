@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
+import ThemeToggle from './ThemeToggle';
 import './Navbar.css';
 
-const NAV_LINKS = [
+const CENTER_LINKS = [
   { label: 'Home', hash: '#home' },
   { label: 'About', hash: '#about' },
   { label: 'Skills', hash: '#skills' },
@@ -11,16 +12,16 @@ const NAV_LINKS = [
   { label: 'Education', hash: '#education' },
   { label: 'Certifications', hash: '#certifications' },
   { label: 'Gallery', hash: '#gallery' },
-  { label: 'Contact', hash: '#contact' },
 ];
 
-const Navbar = ({ name = 'Prince Saini' }) => {
+const Navbar = ({ profile }) => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('#home');
   const location = useLocation();
   const navigate = useNavigate();
   const onHome = location.pathname === '/';
+  const name = profile?.name || 'Prince Saini';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -31,7 +32,8 @@ const Navbar = ({ name = 'Prince Saini' }) => {
 
   useEffect(() => {
     if (!onHome) return undefined;
-    const sections = NAV_LINKS.map((l) => document.querySelector(l.hash)).filter(Boolean);
+    const allHashes = [...CENTER_LINKS, { hash: '#contact' }];
+    const sections = allHashes.map((l) => document.querySelector(l.hash)).filter(Boolean);
     const onScroll = () => {
       let current = '#home';
       sections.forEach((section) => {
@@ -61,8 +63,15 @@ const Navbar = ({ name = 'Prince Saini' }) => {
   return (
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar__inner container">
-        <Link to="/" className="navbar__brand">
-          {name}
+        <Link to="/" className="navbar__brand" onClick={handleNavClick('#home')}>
+          <span className="navbar__avatar">
+            {profile?.profileImage?.url ? (
+              <img src={profile.profileImage.url} alt={name} />
+            ) : (
+              <span className="navbar__avatar-fallback">{name.charAt(0)}</span>
+            )}
+          </span>
+          <span className="navbar__brand-name">{name}</span>
         </Link>
 
         <button
@@ -75,7 +84,7 @@ const Navbar = ({ name = 'Prince Saini' }) => {
         </button>
 
         <nav className={`navbar__links ${open ? 'navbar__links--open' : ''}`} aria-label="Primary">
-          {NAV_LINKS.map((link) => (
+          {CENTER_LINKS.map((link) => (
             <a
               key={link.hash}
               href={link.hash}
@@ -85,6 +94,33 @@ const Navbar = ({ name = 'Prince Saini' }) => {
               {link.label}
             </a>
           ))}
+
+          {/* Contact + Resume also live inside the mobile dropdown */}
+          <a
+            href="#contact"
+            className="navbar__mobile-only"
+            onClick={handleNavClick('#contact')}
+          >
+            Contact
+          </a>
+          <a
+            href="#home"
+            className="navbar__resume-link navbar__mobile-only"
+            onClick={handleNavClick('#home')}
+          >
+            Resume
+          </a>
+        </nav>
+
+        <div className="navbar__right">
+          <a
+            href="#contact"
+            className={`navbar__contact-link ${active === '#contact' && onHome ? 'is-active' : ''}`}
+            onClick={handleNavClick('#contact')}
+          >
+            Contact
+          </a>
+          <ThemeToggle />
           <a
             href="#home"
             className="navbar__resume-link"
@@ -92,7 +128,7 @@ const Navbar = ({ name = 'Prince Saini' }) => {
           >
             Resume
           </a>
-        </nav>
+        </div>
       </div>
     </header>
   );

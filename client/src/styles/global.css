@@ -44,6 +44,42 @@
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Dark mode — same aqua/teal identity, inverted for night viewing */
+:root[data-theme='dark'] {
+  --color-bg: #0b201f;
+  --color-bg-alt: #061513;
+  --color-surface: #123634;
+  --color-surface-hover: #164340;
+  --color-border: #1f4d49;
+  --color-border-soft: #173e3b;
+  --color-ink: #eafaf8;
+  --color-ink-soft: #b8d4d1;
+  --color-muted: #7fa39e;
+
+  --color-accent: #2dd4bf;
+  --color-accent-2: #38bdf8;
+  --color-accent-ink: #06201d;
+  --color-accent-soft: rgba(45, 212, 191, 0.14);
+
+  --color-amber: #fbbf24;
+  --color-success: #4ade80;
+  --color-success-soft: rgba(74, 222, 128, 0.14);
+  --color-danger: #f87171;
+  --color-danger-soft: rgba(248, 113, 113, 0.14);
+
+  --gradient-glow: radial-gradient(circle at top left, rgba(45,212,191,0.22), transparent 55%),
+                    radial-gradient(circle at bottom right, rgba(56,189,248,0.18), transparent 55%);
+}
+
+:root[data-theme='dark'] .btn-primary {
+  color: #06201d;
+}
+
+:root[data-theme='dark'] ::selection {
+  background: var(--color-accent);
+  color: #06201d;
+}
+
 * { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
@@ -66,6 +102,7 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 h1, h2, h3, h4 {

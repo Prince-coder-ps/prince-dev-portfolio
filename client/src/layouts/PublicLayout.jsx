@@ -11,7 +11,7 @@ const PublicLayout = () => {
 
   return (
     <>
-      <Navbar name={profile?.name} />
+      <Navbar profile={profile} />
       <Outlet context={{ profile }} />
       <Footer profile={profile} />
       <BackToTop />
