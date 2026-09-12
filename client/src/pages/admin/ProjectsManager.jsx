@@ -19,7 +19,7 @@ const EMPTY = {
 
 const ProjectsManager = () => {
   const { data, loading, error, refetch } = useContent(getAllProjectsAdmin);
-  const projects = data?.items || [];
+  const projects = data?.projects || [];
 
   const [editing, setEditing] = useState(null); // project object or 'new' or null
   const [form, setForm] = useState(EMPTY);
