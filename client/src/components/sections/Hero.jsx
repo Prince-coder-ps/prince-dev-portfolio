@@ -1,15 +1,34 @@
 import { motion } from 'framer-motion';
 import { FiGithub, FiLinkedin, FiInstagram, FiArrowDown, FiDownload } from 'react-icons/fi';
 import { getActiveResume } from '../../services/content';
+import useTypewriter from '../../hooks/useTypewriter';
 import './Hero.css';
+
+const HERO_ROLES = ['Full Stack Developer', 'Inspire Software Developer'];
 
 const Hero = ({ profile }) => {
   const socials = profile?.socials || {};
+  const typedTitle = useTypewriter(HERO_ROLES, {
+    typingSpeed: 85,
+    deletingSpeed: 45,
+    pauseTime: 1400,
+  });
 
   const handleDownloadResume = async () => {
     try {
       const { resume } = await getActiveResume();
-      window.open(resume.fileUrl, '_blank', 'noopener');
+      const response = await fetch(resume.fileUrl);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const baseName = (resume.originalName || 'resume').replace(/\.[^/.]+$/, '');
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = `${baseName}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(blobUrl);
     } catch {
       // no resume uploaded yet — fail quietly, admin can upload later
     }
@@ -29,7 +48,10 @@ const Hero = ({ profile }) => {
         >
           <span className="hero__eyebrow">{profile?.eyebrow || 'Final Year CSE Student'}</span>
           <h1 className="hero__heading">{profile?.heroHeading || "Hi, I'm Prince Saini."}</h1>
-          <p className="hero__title">{profile?.title || 'Full Stack Developer'}</p>
+          <p className="hero__title" aria-label={HERO_ROLES.join(' / ')}>
+            <span className="hero__title-typed" aria-hidden="true">{typedTitle}</span>
+            <span className="hero__title-cursor" aria-hidden="true">|</span>
+          </p>
           <p className="hero__tagline">{profile?.tagline || 'Building Ideas Into Scalable Web Experiences.'}</p>
           <p className="hero__description">{profile?.heroDescription}</p>
 

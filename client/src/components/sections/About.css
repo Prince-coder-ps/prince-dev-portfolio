@@ -1,5 +1,5 @@
 .about {
-  background: var(--color-bg-alt);
+  background: var(--color-section-alt);
   border-top: 1px solid var(--color-border-soft);
   border-bottom: 1px solid var(--color-border-soft);
 }
@@ -73,4 +73,9 @@
     max-width: 260px;
   }
   .about__meta { flex-direction: column; gap: var(--space-2); }
+}
+
+/* Mobile only — hide the About image entirely, text takes full width */
+@media (max-width: 640px) {
+  .about__image-frame { display: none; }
 }

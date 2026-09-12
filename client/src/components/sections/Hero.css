@@ -67,6 +67,26 @@
   font-weight: 600;
   color: var(--color-accent-2);
   margin-bottom: var(--space-2);
+  min-height: 1.4em;
+  display: flex;
+  align-items: center;
+}
+
+.hero__title-typed {
+  word-break: break-word;
+}
+
+.hero__title-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  font-weight: 500;
+  color: var(--color-accent-2);
+  animation: hero-caret-blink 1s steps(1) infinite;
+}
+
+@keyframes hero-caret-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
 .hero__tagline {
