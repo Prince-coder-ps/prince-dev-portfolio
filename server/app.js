@@ -21,6 +21,11 @@ const dashboardRoutes = require('./routes/dashboardRoutes');
 
 const app = express();
 
+// Render/Vercel-style hosts put a reverse proxy in front of the app. Without this,
+// every visitor appears to share the proxy's IP, so rate limits (general, login,
+// contact) would be shared by ALL users instead of applied per visitor.
+app.set('trust proxy', 1);
+
 // Security headers
 app.use(helmet());
 

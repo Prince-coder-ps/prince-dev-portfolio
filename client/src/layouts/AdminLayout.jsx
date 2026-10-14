@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
@@ -42,7 +43,9 @@ const AdminLayout = () => {
         </div>
       </aside>
       <main className="admin-main">
-        <Outlet />
+        <Suspense fallback={<p className="state-message" role="status">Loading…</p>}>
+          <Outlet />
+        </Suspense>
       </main>
     </div>
   );

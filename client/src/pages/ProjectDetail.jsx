@@ -3,6 +3,7 @@ import { FiGithub, FiExternalLink, FiArrowLeft } from 'react-icons/fi';
 import useContent from '../hooks/useContent';
 import { getProjectBySlug } from '../services/content';
 import AsyncState from '../components/AsyncState';
+import { optimizeImage } from '../utils/image';
 import './ProjectDetail.css';
 
 const ProjectDetail = () => {
@@ -38,7 +39,15 @@ const ProjectDetail = () => {
               </header>
 
               {project.thumbnail?.url && (
-                <img className="project-detail__hero-image" src={project.thumbnail.url} alt={project.title} />
+                <img
+                  className="project-detail__hero-image"
+                  src={optimizeImage(project.thumbnail.url, 1200)}
+                  alt={project.title}
+                  width="1200"
+                  height="750"
+                  decoding="async"
+                  fetchpriority="high"
+                />
               )}
 
               <div className="project-detail__grid">
@@ -78,7 +87,7 @@ const ProjectDetail = () => {
                       <h2>Screenshots</h2>
                       <div className="project-detail__screens">
                         {project.images.map((img) => (
-                          <img key={img.publicId} src={img.url} alt={img.caption || project.title} loading="lazy" />
+                          <img key={img.publicId} src={optimizeImage(img.url, 1000)} alt={img.caption || project.title} loading="lazy" decoding="async" />
                         ))}
                       </div>
                     </>

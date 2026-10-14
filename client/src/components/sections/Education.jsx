@@ -2,6 +2,7 @@ import { FiBookOpen } from 'react-icons/fi';
 import useContent from '../../hooks/useContent';
 import { getEducation } from '../../services/content';
 import AsyncState from '../AsyncState';
+import { optimizeImage } from '../../utils/image';
 import './Education.css';
 
 const Education = () => {
@@ -20,7 +21,7 @@ const Education = () => {
               <div className="education__row" key={e._id}>
                 {e.image?.url && (
                   <div className="education__logo">
-                    <img src={e.image.url} alt={e.institution} />
+                    <img src={optimizeImage(e.image.url, 128)} alt={e.institution} width="64" height="64" loading="lazy" decoding="async" />
                   </div>
                 )}
                 <div>

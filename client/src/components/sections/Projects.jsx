@@ -3,6 +3,7 @@ import { FiGithub, FiExternalLink, FiFolder } from 'react-icons/fi';
 import useContent from '../../hooks/useContent';
 import { getProjects } from '../../services/content';
 import AsyncState from '../AsyncState';
+import { optimizeImage } from '../../utils/image';
 import './Projects.css';
 
 const CATEGORY_COLORS = {
@@ -36,7 +37,14 @@ const Projects = () => {
               >
                 {p.thumbnail?.url && (
                   <Link to={`/projects/${p.slug}`} className="project-card__image">
-                    <img src={p.thumbnail.url} alt={p.title} loading="lazy" />
+                    <img
+                      src={optimizeImage(p.thumbnail.url, 640)}
+                      alt={p.title}
+                      width="640"
+                      height="400"
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </Link>
                 )}
                 <div className="project-card__body">

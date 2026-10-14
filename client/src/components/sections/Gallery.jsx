@@ -3,6 +3,7 @@ import { FiX, FiImage } from 'react-icons/fi';
 import useContent from '../../hooks/useContent';
 import { getGallery } from '../../services/content';
 import AsyncState from '../AsyncState';
+import { optimizeImage } from '../../utils/image';
 import './Gallery.css';
 
 const Gallery = () => {
@@ -20,7 +21,7 @@ const Gallery = () => {
           <div className="gallery__grid">
             {items.map((g) => (
               <button key={g._id} className="gallery__item" onClick={() => setActive(g)}>
-                <img src={g.image.url} alt={g.title} loading="lazy" />
+                <img src={optimizeImage(g.image.url, 480)} alt={g.title} width="480" height="480" loading="lazy" decoding="async" />
                 <span>{g.title}</span>
               </button>
             ))}
@@ -34,7 +35,7 @@ const Gallery = () => {
             <FiX size={26} />
           </button>
           <figure onClick={(e) => e.stopPropagation()}>
-            <img src={active.image.url} alt={active.title} />
+            <img src={optimizeImage(active.image.url, 1400)} alt={active.title} decoding="async" />
             <figcaption>
               <strong>{active.title}</strong>
               {active.description && <p>{active.description}</p>}

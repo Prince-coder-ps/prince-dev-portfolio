@@ -1,4 +1,5 @@
 import { FiUser } from 'react-icons/fi';
+import { optimizeImage } from '../../utils/image';
 import './About.css';
 
 const About = ({ profile }) => {
@@ -9,7 +10,14 @@ const About = ({ profile }) => {
       <div className="container about__grid">
         <div className="about__image-frame">
           {profile?.aboutImage?.url ? (
-            <img src={profile.aboutImage.url} alt={profile?.name || 'About'} />
+            <img
+              src={optimizeImage(profile.aboutImage.url, 640)}
+              alt={profile?.name || 'About'}
+              width="480"
+              height="640"
+              loading="lazy"
+              decoding="async"
+            />
           ) : (
             <div className="about__image-placeholder" aria-hidden="true" />
           )}

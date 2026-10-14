@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX } from 'react-icons/fi';
 import ThemeToggle from './ThemeToggle';
+import { optimizeImage } from '../utils/image';
 import './Navbar.css';
 
 const CENTER_LINKS = [
@@ -66,7 +67,7 @@ const Navbar = ({ profile }) => {
         <Link to="/" className="navbar__brand" onClick={handleNavClick('#home')}>
           <span className="navbar__avatar">
             {profile?.profileImage?.url ? (
-              <img src={profile.profileImage.url} alt={name} />
+              <img src={optimizeImage(profile.profileImage.url, 96)} alt={name} width="38" height="38" decoding="async" />
             ) : (
               <span className="navbar__avatar-fallback">{name.charAt(0)}</span>
             )}
