@@ -4,6 +4,7 @@ import useContent from '../../hooks/useContent';
 import { getProjects } from '../../services/content';
 import AsyncState from '../AsyncState';
 import { optimizeImage } from '../../utils/image';
+import { projectPath } from '../../utils/projectPath';
 import './Projects.css';
 
 const CATEGORY_COLORS = {
@@ -36,7 +37,7 @@ const Projects = () => {
                 style={{ '--accent': CATEGORY_COLORS[p.category] || 'var(--color-accent)' }}
               >
                 {p.thumbnail?.url && (
-                  <Link to={`/projects/${p.slug}`} className="project-card__image">
+                  <Link to={projectPath(p)} className="project-card__image">
                     <img
                       src={optimizeImage(p.thumbnail.url, 640)}
                       alt={p.title}
@@ -53,7 +54,7 @@ const Projects = () => {
                     {p.year && <span>{p.year}</span>}
                   </div>
                   <h3>
-                    <Link to={`/projects/${p.slug}`}>{p.title}</Link>
+                    <Link to={projectPath(p)}>{p.title}</Link>
                   </h3>
                   <p>{p.shortDescription}</p>
 
@@ -66,7 +67,7 @@ const Projects = () => {
                   )}
 
                   <div className="project-card__links">
-                    <Link to={`/projects/${p.slug}`}>View Project</Link>
+                    <Link to={projectPath(p)}>View Project</Link>
                     {p.liveUrl && (
                       <a href={p.liveUrl} target="_blank" rel="noreferrer"><FiExternalLink /> Live</a>
                     )}

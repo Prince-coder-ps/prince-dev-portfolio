@@ -4,7 +4,15 @@ const { ok, created } = require('../utils/apiResponse');
 const { ApiError } = require('../middleware/errorHandler');
 
 const slugify = (str) =>
-  str.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  String(str || '').toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+const OBJECT_ID = /^[a-f0-9]{24}$/i;
+
+// Always produce a URL-safe slug (a-z, 0-9, hyphens). Falls back to the title,
+// and finally to a generated value, so a project can never end up with an empty
+// or unroutable slug (e.g. one containing spaces, "/", "?" or "#").
+const buildSlug = (slug, title) =>
+  slugify(slug) || slugify(title) || `project-${Date.now().toString(36)}`;
 
 // Public: only published projects, ordered
 const getPublicProjects = async (req, res, next) => {
@@ -18,7 +26,14 @@ const getPublicProjects = async (req, res, next) => {
 
 const getPublicProjectBySlug = async (req, res, next) => {
   try {
-    const project = await Project.findOne({ slug: req.params.slug, published: true });
+    // Accept the slug as stored, its normalized form (older projects may have been
+    // saved with spaces/capitals), or the project's _id as a last-resort link.
+    const key = String(req.params.slug || '').trim();
+    const candidates = [key.toLowerCase(), slugify(key)].filter(Boolean);
+    const match = [{ slug: { $in: candidates } }];
+    if (OBJECT_ID.test(key)) match.push({ _id: key });
+
+    const project = await Project.findOne({ published: true, $or: match });
     if (!project) throw new ApiError(404, 'Project not found.');
     return ok(res, 'Project fetched.', { project });
   } catch (err) {
@@ -39,7 +54,7 @@ const getAllProjectsAdmin = async (req, res, next) => {
 const createProject = async (req, res, next) => {
   try {
     const body = { ...req.body };
-    if (!body.slug && body.title) body.slug = slugify(body.title);
+    body.slug = buildSlug(body.slug, body.title);
     if (typeof body.technologies === 'string') body.technologies = JSON.parse(body.technologies);
     if (typeof body.features === 'string') body.features = JSON.parse(body.features);
 
@@ -55,6 +70,13 @@ const updateProject = async (req, res, next) => {
     const body = { ...req.body };
     if (typeof body.technologies === 'string') body.technologies = JSON.parse(body.technologies);
     if (typeof body.features === 'string') body.features = JSON.parse(body.features);
+
+    // Normalize the slug on every save, so re-saving an old project repairs it.
+    if (body.slug !== undefined) {
+      const clean = slugify(body.slug) || slugify(body.title);
+      if (clean) body.slug = clean;
+      else delete body.slug; // keep the existing slug
+    }
 
     const project = await Project.findByIdAndUpdate(req.params.id, body, {
       new: true,

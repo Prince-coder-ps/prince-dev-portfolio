@@ -9,7 +9,7 @@ export const uploadProfileImage = (type, file) => {
 };
 
 export const getProjects = () => unwrap(api.get('/projects'));
-export const getProjectBySlug = (slug) => unwrap(api.get(`/projects/slug/${slug}`));
+export const getProjectBySlug = (slug) => unwrap(api.get(`/projects/slug/${encodeURIComponent(slug)}`));
 export const getAllProjectsAdmin = () => unwrap(api.get('/projects/admin/all'));
 export const createProject = (payload) => unwrap(api.post('/projects', payload));
 export const updateProject = (id, payload) => unwrap(api.put(`/projects/${id}`, payload));
